@@ -1,0 +1,87 @@
+version: '3'
+
+volumes:
+  redis_1_data:
+  redis_2_data:
+  redis_3_data:
+  redis_4_data:
+  redis_5_data:
+
+services:
+  redis_1:
+    image: bitnami/redis-cluster:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_1_data:/data
+      - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CLUSTER_REPLICAS=0
+      - REDIS_CLUSTER_CREATOR=yes
+      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
+      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
+      - REDISCLI_AUTH=${REDIS_PASSWORD}
+      - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+  redis_2:
+    image: bitnami/redis-cluster:latest
+    ports:
+      - 6380:6379
+    volumes:
+      - redis_2_data:/data
+      - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CLUSTER_REPLICAS=0
+      - REDIS_CLUSTER_CREATOR=yes
+      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
+      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
+      - REDISCLI_AUTH=${REDIS_PASSWORD}
+      - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+  redis_3:
+    image: bitnami/redis-cluster:latest
+    ports:
+      - 6381:6379
+    volumes:
+      - redis_3_data:/data
+      - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CLUSTER_REPLICAS=0
+      - REDIS_CLUSTER_CREATOR=yes
+      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
+      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
+      - REDISCLI_AUTH=${REDIS_PASSWORD}
+      - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+  redis_4:
+    image: bitnami/redis-cluster:latest
+    ports:
+      - 6382:6379
+    volumes:
+      - redis_4_data:/data
+      - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CLUSTER_REPLICAS=0
+      - REDIS_CLUSTER_CREATOR=yes
+      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
+      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
+      - REDISCLI_AUTH=${REDIS_PASSWORD}
+      - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+  redis_5:
+    image: bitnami/redis-cluster:latest
+    ports:
+      - 6383:6379
+    volumes:
+      - redis_5_data:/data
+      - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CLUSTER_REPLICAS=0
+      - REDIS_CLUSTER_CREATOR=yes
+      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
+      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
+      - REDISCLI_AUTH=${REDIS_PASSWORD}
+      - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+  
+  
