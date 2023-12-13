@@ -7,6 +7,15 @@ volumes:
   redis_4_data:
   redis_5_data:
 
+networks:
+  default:
+    name: redis_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.17.0.0/16
+
 services:
   redis_1:
     image: bitnami/redis-cluster:latest
@@ -17,12 +26,11 @@ services:
       - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_CLUSTER_REPLICAS=0
-      - REDIS_CLUSTER_CREATOR=yes
-      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
-      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
       - REDISCLI_AUTH=${REDIS_PASSWORD}
       - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+    networks:
+      default:
+        ipv4_address: 173.17.0.2
   redis_2:
     image: bitnami/redis-cluster:latest
     ports:
@@ -32,12 +40,11 @@ services:
       - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_CLUSTER_REPLICAS=0
-      - REDIS_CLUSTER_CREATOR=yes
-      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
-      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
       - REDISCLI_AUTH=${REDIS_PASSWORD}
       - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+    networks:
+      default:
+        ipv4_address: 173.17.0.3
   redis_3:
     image: bitnami/redis-cluster:latest
     ports:
@@ -47,12 +54,11 @@ services:
       - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_CLUSTER_REPLICAS=0
-      - REDIS_CLUSTER_CREATOR=yes
-      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
-      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
       - REDISCLI_AUTH=${REDIS_PASSWORD}
       - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+    networks:
+      default:
+        ipv4_address: 173.17.0.4
   redis_4:
     image: bitnami/redis-cluster:latest
     ports:
@@ -62,12 +68,11 @@ services:
       - ./redis.conf:/opt/bitnami/redis/mounted-etc/overrides.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_CLUSTER_REPLICAS=0
-      - REDIS_CLUSTER_CREATOR=yes
-      - REDIS_CLUSTER_SLEEP_BEFORE_DNS_LOOKUP=30
-      - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
       - REDISCLI_AUTH=${REDIS_PASSWORD}
       - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+    networks:
+      default:
+        ipv4_address: 173.17.0.5
   redis_5:
     image: bitnami/redis-cluster:latest
     ports:
@@ -83,5 +88,8 @@ services:
       - REDIS_CLUSTER_DNS_LOOKUP_RETRIES=30
       - REDISCLI_AUTH=${REDIS_PASSWORD}
       - REDIS_NODES=redis_1 redis_2 redis_3 redis_4 redis_5
+    networks:
+      default:
+        ipv4_address: 173.17.0.6
   
   
